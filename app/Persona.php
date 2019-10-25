@@ -11,9 +11,9 @@ class Persona extends Model
     protected $fillable = ['primer_nombre','segundo_nombre','primer_apellido','segundo_apellido','sexo_id','fecha_nac'];
 
 
-	public function paciente()
+	public function expediente()
     {
-        return $this->hasOne('App\Paciente');
+        return $this->hasOne('App\Expediente');
     }
 
     public function doctor()

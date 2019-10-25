@@ -7,13 +7,20 @@ use Illuminate\Database\Migrations\Migration;
 class CreatePersonasTable extends Migration
 {
     /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'personas';
+
+    /**
      * Run the migrations.
+     * @table personas
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('personas', function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('primer_nombre', 15)->nullable();
@@ -23,7 +30,7 @@ class CreatePersonasTable extends Migration
             $table->unsignedInteger('sexo_id');
             $table->date('fecha_nac')->nullable();
             $table->timestamps();
-            
+
             $table->index(["sexo_id"], 'fk_personas_sexos1_idx');
 
 
@@ -31,7 +38,6 @@ class CreatePersonasTable extends Migration
                 ->references('id')->on('sexos')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-            
         });
     }
 
@@ -40,8 +46,8 @@ class CreatePersonasTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('personas');
-    }
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
 }

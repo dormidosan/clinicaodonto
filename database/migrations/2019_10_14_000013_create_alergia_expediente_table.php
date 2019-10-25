@@ -7,13 +7,20 @@ use Illuminate\Database\Migrations\Migration;
 class CreateAlergiaExpedienteTable extends Migration
 {
     /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'alergia_expediente';
+
+    /**
      * Run the migrations.
+     * @table alergia_expediente
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('alergia_expediente', function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->unsignedInteger('expediente_id');
             $table->unsignedInteger('alergia_id');
@@ -33,7 +40,6 @@ class CreateAlergiaExpedienteTable extends Migration
                 ->references('id')->on('alergias')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-            
         });
     }
 
@@ -42,8 +48,8 @@ class CreateAlergiaExpedienteTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('alergia_expediente');
-    }
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
 }

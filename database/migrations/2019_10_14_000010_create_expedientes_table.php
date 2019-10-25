@@ -7,22 +7,31 @@ use Illuminate\Database\Migrations\Migration;
 class CreateExpedientesTable extends Migration
 {
     /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'expedientes';
+
+    /**
      * Run the migrations.
+     * @table expedientes
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('expedientes', function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->unsignedInteger('persona_id');
             $table->unsignedInteger('tipo_sanguineo_id');
-            $table->unsignedInteger('paciente_id');
+            $table->string('direccion', 60)->nullable();
+            $table->string('email', 45)->nullable();
             $table->timestamps();
 
             $table->index(["tipo_sanguineo_id"], 'fk_expedientes_tipo_sanguineos1_idx');
 
-            $table->index(["paciente_id"], 'fk_expedientes_pacientes1_idx');
+            $table->index(["persona_id"], 'fk_expedientes_personas1_idx');
 
 
             $table->foreign('tipo_sanguineo_id', 'fk_expedientes_tipo_sanguineos1_idx')
@@ -30,14 +39,10 @@ class CreateExpedientesTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('paciente_id', 'fk_expedientes_pacientes1_idx')
-                ->references('id')->on('pacientes')
+            $table->foreign('persona_id', 'fk_expedientes_personas1_idx')
+                ->references('id')->on('personas')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-       
-
-
-            
         });
     }
 
@@ -46,8 +51,8 @@ class CreateExpedientesTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('expedientes');
-    }
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
 }

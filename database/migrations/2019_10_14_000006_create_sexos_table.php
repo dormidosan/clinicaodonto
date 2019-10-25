@@ -7,13 +7,20 @@ use Illuminate\Database\Migrations\Migration;
 class CreateSexosTable extends Migration
 {
     /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'sexos';
+
+    /**
      * Run the migrations.
+     * @table sexos
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('sexos', function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('sexo_t', 1)->nullable();
@@ -27,8 +34,8 @@ class CreateSexosTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('sexos');
-    }
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
 }

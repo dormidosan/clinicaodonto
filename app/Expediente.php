@@ -34,14 +34,20 @@ class Expediente extends Model
         return $this->hasMany('App\Pago');
     }
 
+    public function telefonos()
+    {
+        return $this->hasMany('App\Telefono');
+    }
+
     //foraneas
+    public function persona()
+    {
+        return $this->belongsTo('App\Persona');
+    }
+
     public function tipo_sanguineo()
     {
         return $this->belongsTo('App\TipoSanguineo');
     }
-
-    public function paciente()
-    {
-        return $this->belongsTo('App\Paciente');
-    }
+    
 }

@@ -4,20 +4,26 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlergiasTable extends Migration
+class CreateObservacionesTable extends Migration
 {
     /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'observaciones';
+
+    /**
      * Run the migrations.
+     * @table observaciones
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('alergias', function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('tipo', 2)->nullable();
-            $table->string('tipo_nombre', 15)->nullable();
+            $table->string('observacion')->nullable();
             $table->timestamps();
         });
     }
@@ -27,8 +33,8 @@ class CreateAlergiasTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('alergias');
-    }
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
 }

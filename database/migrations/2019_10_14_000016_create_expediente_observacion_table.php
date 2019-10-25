@@ -7,13 +7,20 @@ use Illuminate\Database\Migrations\Migration;
 class CreateExpedienteObservacionTable extends Migration
 {
     /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'expediente_observacion';
+
+    /**
      * Run the migrations.
+     * @table expediente_observacion
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('expediente_observacion', function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->unsignedInteger('expediente_id');
             $table->unsignedInteger('observacion_id');
@@ -33,7 +40,6 @@ class CreateExpedienteObservacionTable extends Migration
                 ->references('id')->on('observaciones')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-            
         });
     }
 
@@ -42,8 +48,8 @@ class CreateExpedienteObservacionTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('expediente_observacion');
-    }
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
 }

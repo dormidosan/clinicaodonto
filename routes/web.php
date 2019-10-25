@@ -11,12 +11,46 @@
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return redirect('/expedientes'); 
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('expedientes', 'ExpedienteController');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::any('{query}', function() { 
+	return redirect('/home'); 
+})->where('query', '.*');

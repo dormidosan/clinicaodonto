@@ -65,33 +65,45 @@ class DatosTableSeeder extends Seeder
     	
         }
 
-        // 7 pacientes
+   //      // 7 pacientes
+
+   //      for ($i=4; $i < 1000 ; $i++) { 
+        	
+	  //   	\DB::table('pacientes')->insert(array (
+			// 'persona_id'  => $i,
+			// 'direccion'  =>  substr($faker->address.'***0123456789', 0, 60),
+			// 'email'  => $faker->freeEmail,
+			// 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+			// 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+			// ));
+    	
+   //      }
+
+        // 7 expedientes
 
         for ($i=4; $i < 1000 ; $i++) { 
         	
-	    	\DB::table('pacientes')->insert(array (
+	    	\DB::table('expedientes')->insert(array (
 			'persona_id'  => $i,
+			'tipo_sanguineo_id'  =>  $faker->numberBetween($min = 1, $max = 9),
 			'direccion'  =>  substr($faker->address.'***0123456789', 0, 60),
 			'email'  => $faker->freeEmail,
 			'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
 			'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
 			));
+
+	    	for ($j=0; $j < $i%3 ; $j++) { 
+	    		\DB::table('telefonos')->insert(array (
+				'expediente_id'  => $i-3,
+				'numero'  => $faker->e164PhoneNumber,
+				'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+				'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+				));
+	    	}	
     	
         }
 
-        // 7 expedientes
-
-        for ($i=1; $i < 997 ; $i++) { 
-        	
-	    	\DB::table('expedientes')->insert(array (
-			'paciente_id'  => $i,
-			'tipo_sanguineo_id'  =>  $faker->numberBetween($min = 1, $max = 9),
-			'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-			'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-			));
-    	
-        }
-
+        
 
 
 

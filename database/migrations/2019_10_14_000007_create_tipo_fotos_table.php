@@ -7,17 +7,24 @@ use Illuminate\Database\Migrations\Migration;
 class CreateTipoFotosTable extends Migration
 {
     /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'tipo_fotos';
+
+    /**
      * Run the migrations.
+     * @table tipo_fotos
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('tipo_fotos', function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('tipo', 4)->nullable();
-            $table->string('tipo_nombre', 20)->nullable();
+            $table->string('tipo_nombre', 30)->nullable();
             $table->timestamps();
         });
     }
@@ -27,8 +34,8 @@ class CreateTipoFotosTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('tipo_fotos');
-    }
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
 }
